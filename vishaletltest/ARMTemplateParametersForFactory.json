@@ -20,6 +20,9 @@
 		"AzureSqlDatabaseposts_password": {
 			"value": ""
 		},
+		"ls_formula1_accountKey": {
+			"value": ""
+		},
 		"AzureDatabricks notebooks_properties_typeProperties_existingClusterId": {
 			"value": "1229-145043-xxl3hsbm"
 		},
@@ -55,6 +58,9 @@
 		},
 		"RestService3_properties_typeProperties_url": {
 			"value": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
+		},
+		"ls_formula1_properties_typeProperties_url": {
+			"value": "https://dbdlvishal.dfs.core.windows.net/"
 		}
 	}
 }

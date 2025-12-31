@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseposts'"
 		},
+		"ls_formula1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_formula1'"
+		},
 		"AzureDatabricks notebooks_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "1229-145043-xxl3hsbm"
@@ -75,6 +79,10 @@
 			"type": "string",
 			"defaultValue": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
 		},
+		"ls_formula1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dbdlvishal.dfs.core.windows.net/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -117,6 +125,9 @@
 					"AzureSqlDatabaseposts_password": {
 						"value": "[parameters('AzureSqlDatabaseposts_password')]"
 					},
+					"ls_formula1_accountKey": {
+						"value": "[parameters('ls_formula1_accountKey')]"
+					},
 					"AzureDatabricks notebooks_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('AzureDatabricks notebooks_properties_typeProperties_existingClusterId')]"
 					},
@@ -152,6 +163,9 @@
 					},
 					"RestService3_properties_typeProperties_url": {
 						"value": "[parameters('RestService3_properties_typeProperties_url')]"
+					},
+					"ls_formula1_properties_typeProperties_url": {
+						"value": "[parameters('ls_formula1_properties_typeProperties_url')]"
 					}
 				}
 			},
