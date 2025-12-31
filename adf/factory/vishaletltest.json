@@ -1,0 +1,9 @@
+{
+	"name": "vishaletltest",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "eb2400aa-d48f-49f1-85d2-254012ba445c",
+		"tenantId": "493d8f0b-148a-47e5-ac5c-467c8e03eeba"
+	}
+}

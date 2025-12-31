@@ -1,0 +1,101 @@
+{
+	"name": "dataflow4",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "cryptodatarest",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlCryptosink",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          body as (ath as double, ath_change_percentage as double, ath_date as string, atl as double, atl_change_percentage as double, atl_date as string, circulating_supply as double, current_price as double, fully_diluted_valuation as long, high_24h as double, id as string, image as string, last_updated as string, low_24h as double, market_cap as long, market_cap_change_24h as double, market_cap_change_percentage_24h as double, market_cap_rank as short, max_supply as double, name as string, price_change_24h as double, price_change_percentage_24h as double, roi as (currency as string, percentage as double, times as double), symbol as string, total_supply as double, total_volume as double),",
+				"          headers as [string,string]",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     httpMethod: 'GET',",
+				"     timeout: 30,",
+				"     requestInterval: 0,",
+				"     paginationRules: ['supportRFC5988' -> 'true'],",
+				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'arrayOfDocuments']) ~> source1",
+				"source1 derive({current_price } = toDecimal(iifNull(body.current_price,0,body.current_price), 18, 8),",
+				"          market_cap = toDecimal(body.market_cap , 28,2),",
+				"          total_volume = toDecimal(body.total_volume , 28,2),",
+				"          PriceChange24hPct = toDecimal(body.price_change_percentage_24h, 2, 0),",
+				"          name = upper(left(body.name,1)) + lower(substring(body.name,2,length(body.name))),",
+				"          LoadTimestamp = currentTimestamp()) ~> derivedColumn1",
+				"derivedColumn1 filter(body.market_cap_rank <=100 && body.current_price  >0) ~> filter1",
+				"filter1 derive(IsTop100 = 1) ~> derivedColumn2",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CoinId as string,",
+				"          Symbol as string,",
+				"          Name as string,",
+				"          PriceUSD as decimal(18,8),",
+				"          MarketCap as decimal(28,2),",
+				"          MarketCapRank as integer,",
+				"          Volume24h as decimal(28,2),",
+				"          PriceChange24hPct as decimal(10,4),",
+				"          CirculatingSupply as decimal(28,2),",
+				"          ATH as decimal(18,8),",
+				"          LoadTimestamp as timestamp,",
+				"          IsTop100 as boolean",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CoinId = body.id,",
+				"          Symbol = body.symbol,",
+				"          Name = name,",
+				"          PriceUSD = body.current_price,",
+				"          MarketCap = body.market_cap,",
+				"          MarketCapRank = body.market_cap_rank,",
+				"          Volume24h = total_volume,",
+				"          PriceChange24hPct,",
+				"          CirculatingSupply = body.circulating_supply,",
+				"          ATH = body.atl,",
+				"          LoadTimestamp,",
+				"          IsTop100",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

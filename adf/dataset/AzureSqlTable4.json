@@ -1,0 +1,53 @@
+{
+	"name": "AzureSqlTable4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseposts",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PostId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Title",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CleanTitle",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Body",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ShortBody",
+				"type": "nvarchar"
+			},
+			{
+				"name": "UserId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "LoadTimestamp",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "IsActive",
+				"type": "bit"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "posts"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "cryptodatarest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "RestService3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

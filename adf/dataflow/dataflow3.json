@@ -1,0 +1,85 @@
+{
+	"name": "dataflow3",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "RestResource1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable4",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "filter1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          body as (body as string, id as short, title as string, userId as short),",
+				"          headers as [string,string]",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     httpMethod: 'GET',",
+				"     timeout: 30,",
+				"     requestInterval: 0,",
+				"     paginationRules: ['supportRFC5988' -> 'true'],",
+				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'arrayOfDocuments']) ~> source1",
+				"filter1 derive(bodyshort = left(body.body, 500),",
+				"          cleantitle = upper(left(body.title,1)) + lower(substring(body.title,2, length(body.title))),",
+				"          PostId = toInteger(body.id),",
+				"          LoadTimestamp = currentDate()) ~> derivedColumn1",
+				"source1 filter(not(isNull(body.title)) && greater(length(body.title), 0)) ~> filter1",
+				"derivedColumn1 sink(allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     input(",
+				"          PostId as integer,",
+				"          Title as string,",
+				"          CleanTitle as string,",
+				"          Body as string,",
+				"          ShortBody as string,",
+				"          UserId as integer,",
+				"          LoadTimestamp as timestamp,",
+				"          IsActive as boolean",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'allErrors',",
+				"     transactionCommit: 'single',",
+				"     reportSuccessOnError: true,",
+				"     mapColumn(",
+				"          PostId,",
+				"          CleanTitle = cleantitle,",
+				"          ShortBody = bodyshort,",
+				"          Body = body.body,",
+				"          LoadTimestamp",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

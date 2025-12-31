@@ -1,0 +1,14 @@
+{
+	"name": "AzureDatabricks notebooks",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-7405608623354291.11.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/4334ebd4-162a-48f6-a9fd-b7989ff3c7c2/resourceGroups/VishalPracticeResourceGroup/providers/Microsoft.Databricks/workspaces/vishaldatabrickstest",
+			"existingClusterId": "1229-145043-xxl3hsbm"
+		}
+	}
+}
