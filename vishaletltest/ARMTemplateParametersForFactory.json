@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "vishaletltest"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase2_password": {
+			"value": ""
+		},
+		"AzureSqlDatabaseposts_password": {
+			"value": ""
+		},
+		"AzureDatabricks notebooks_properties_typeProperties_existingClusterId": {
+			"value": "1229-145043-xxl3hsbm"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "vishaladmin.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "vpp"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "vishal_admin"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_server": {
+			"value": "vishaladmin.database.windows.net"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_database": {
+			"value": "vpp"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_userName": {
+			"value": "vishal_admin"
+		},
+		"AzureSqlDatabaseposts_properties_typeProperties_server": {
+			"value": "vishaladmin.database.windows.net"
+		},
+		"AzureSqlDatabaseposts_properties_typeProperties_database": {
+			"value": "vpp"
+		},
+		"AzureSqlDatabaseposts_properties_typeProperties_userName": {
+			"value": "vishal_admin"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://jsonplaceholder.typicode.com/posts"
+		},
+		"RestService3_properties_typeProperties_url": {
+			"value": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
+		}
+	}
+}
