@@ -263,6 +263,87 @@
 							"referenceName": "AzureDatabricks notebooks",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "transaform driver data",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "ingest data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/formula1-project/transformation-driver_standings"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks notebooks",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "transaform race data",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "ingest data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/formula1-project/transformation-race_results"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks notebooks",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "transaform team data",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "ingest data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/formula1-project/transformation-team_standings"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks notebooks",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
